@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Admin Giriş</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <h:form>  
+                               <p:menubar>
+
+                    <p:submenu label="Yönetim" icon="ui-icon-gear">
+                        <p:menuitem value="Kategori" url="#" />
+                        <p:menuitem value="Ürünler" url="#" />
+                        <p:menuitem value="Tedarikçiler" url="#" />
+                        <p:separator />
+                        <p:menuitem value="Üye Kaydı" url="#" />
+                    </p:submenu>
+
+                    <p:submenu label="Satın Alma" icon="ui-icon-script">
+                        <p:menuitem value="Satın Alma Talep" url="#" icon="ui-icon-circle-plus" />
+                        <p:menuitem value="Satın Alma İptal" url="#" icon="ui-icon-circle-close" />
+                        <p:menuitem value="Satın Alma Takip" url="#" icon="ui-icon-info" />
+                    </p:submenu>
+
+                    <p:submenu  label="Rapor" icon="ui-icon-help">
+                        <p:menuitem value="Contents" url="#" />
+
+                    </p:submenu>
+
+
+                    <f:facet name="options">
+
+                        <p:outputLabel> Hoş Geldiniz :#{userLoginView.adi} #{userLoginView.soyadi} </p:outputLabel>
+                        <p:commandButton value="Çıkış Yap" icon="ui-icon-power" actionListener="#{satinAlmaMenuView.cikis}"/>
+                    </f:facet>
+                </p:menubar>
+
+
+                <p:separator />
+                <p:dataTable var="satinAlma" value="#{satinAlmaMenuView.listele()}">
+                     <f:facet name="header">
+                        Satın Alma Talepleri
+                    </f:facet>
+                    
+                    
+                    <p:column headerText="Kategori">
+                        <h:outputText value="#{satinAlma.tedarikci_adi}" />
+                    </p:column>
+
+                    <p:column headerText="Tedarikçi ">
+                        <h:outputText value="#{satinAlma.tedarikci_adi}" />
+                    </p:column>
+
+                    <p:column headerText="Ürün" >
+                        <h:outputText value="#{satinAlma.urun_adi}" />
+                    </p:column>
+
+                    <p:column headerText="Birim Fiyat">
+                        <h:outputText value="#{satinAlma.birimFiyat}" />
+                    </p:column>
+                    <p:column headerText="Adet">
+                        <h:outputText value="#{satinAlma.adet}" />
+                    </p:column>
+                    <p:column headerText="KDV">
+                        <h:outputText value="#{satinAlma.kdv}" />
+                    </p:column>
+                    <p:column headerText="Toplam Tutar">
+                        <h:outputText value="#{satinAlma.toplamTutar}" />
+                    </p:column>
+                    <p:column headerText="Genel Toplam">
+                        <h:outputText value="#{satinAlma.genelToplam}" />
+                    </p:column>
+                    <p:column headerText="Durum">
+                        <h:outputText value="#{satinAlma.durum}" />
+                    </p:column>
+                      <p:column headerText="Tarih">
+                          <h:outputText value="#{satinAlma.tarih}" />
+                    </p:column>
+                                      
+                </p:dataTable>
+
+
+
+
+
+            </h:form>
+
+
+        </h:body>
+    </f:view>
+</html>
