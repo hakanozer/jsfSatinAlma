@@ -22,7 +22,7 @@ public class MenuView {
     }
      
     public void addMessage(String summary, String detail) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
-        FacesContext.getCurrentInstance().addMessage(null, message);
+       // FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+       // FacesContext.getCurrentInstance().addMessage(null, message);
     }
 }

@@ -17,7 +17,7 @@ public class DB {
     String forname = "com.mysql.jdbc.Driver";
     String dbName = "satinalma";
     String dbUName = "root";
-    String dbUPass = "112233";
+    String dbUPass = "aaaaaa";
 
     // Bağlantı değişkenleri
     Connection conn = null;

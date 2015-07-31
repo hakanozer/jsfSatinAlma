@@ -16,6 +16,15 @@
         <h:body>
 
             <h:form>  
+                
+                <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+                
+<script type="text/javascript">
+   $(document).ready(function(){
+       $('.ui-growl.ui-widget').delay(3000).slideUp(1000);
+   })
+</script>
+                
                                <p:menubar>
 
                     <p:submenu label="Yönetim" icon="ui-icon-gear">

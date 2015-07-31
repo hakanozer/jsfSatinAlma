@@ -100,10 +100,8 @@ public class UserLoginView {
                   git.getFlash().setKeepMessages(true);
                   git.getFlash().setRedirect(true);
                    
-            FacesContext.getCurrentInstance().addMessage(null, message);  
-                
-                    
-            git.redirect("faces/yonetici.xhtml?faces-redirect=true");
+                 FacesContext.getCurrentInstance().addMessage(null, message);  
+                 git.redirect("faces/yonetici.xhtml?faces-redirect=true");
                       
                 } catch (Exception e) {
                     
@@ -113,8 +111,9 @@ public class UserLoginView {
              
             if (rs.getString("seviye").equals("1")) {
                 try {
-            
-               
+                git.getFlash().setKeepMessages(true);
+                  git.getFlash().setRedirect(true);
+               FacesContext.getCurrentInstance().addMessage(null, message);
                 git.redirect("faces/satinalma.xhtml?faces-redirect=true");
                 } catch (Exception e) {
                     
@@ -127,12 +126,13 @@ public class UserLoginView {
         
         else {
             loggedIn = false;
-          message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Hatalı !", "Giriş Başarısız");
+            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Hatalı !", "Giriş Başarısız");
+            FacesContext.getCurrentInstance().addMessage(null, message);
         }
 
  
-        FacesContext.getCurrentInstance().addMessage(null, message);
-     context.addCallbackParam("loggedIn", loggedIn);
+        
+        context.addCallbackParam("loggedIn", loggedIn);
     }
     
     
