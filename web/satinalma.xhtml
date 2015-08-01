@@ -3,29 +3,38 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      >
+
+    <style>
+        table {
+            font-size: 13px;
+        }
+    </style>
 
     <f:view contentType="text/html">
         <h:head>
+
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+
                 <title>Admin Giriş</title>
             </f:facet>
         </h:head>
 
         <h:body>
-
             <h:form>  
-                
+
                 <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
-                
-<script type="text/javascript">
-   $(document).ready(function(){
-       $('.ui-growl.ui-widget').delay(3000).slideUp(1000);
-   })
-</script>
-                
-                               <p:menubar>
+
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('.ui-growl.ui-widget').delay(3000).slideUp(1000);
+                    })
+                </script>
+
+                <p:menubar>
 
                     <p:submenu label="Yönetim" icon="ui-icon-gear">
                         <p:menuitem value="Kategori" url="#" />
@@ -36,6 +45,10 @@
                     </p:submenu>
 
                     <p:submenu label="Satın Alma" icon="ui-icon-script">
+
+
+
+
                         <p:menuitem value="Satın Alma Talep" url="#" icon="ui-icon-circle-plus" />
                         <p:menuitem value="Satın Alma İptal" url="#" icon="ui-icon-circle-close" />
                         <p:menuitem value="Satın Alma Takip" url="#" icon="ui-icon-info" />
@@ -43,61 +56,124 @@
 
                     <p:submenu  label="Rapor" icon="ui-icon-help">
                         <p:menuitem value="Contents" url="#" />
-
                     </p:submenu>
 
 
                     <f:facet name="options">
 
-                        <p:outputLabel> Hoş Geldiniz :#{userLoginView.adi} #{userLoginView.soyadi} </p:outputLabel>
-                        <p:commandButton value="Çıkış Yap" icon="ui-icon-power" actionListener="#{satinAlmaMenuView.cikis}"/>
+                        <p:outputLabel> Hoş Geldiniz :#{dB.userName} #{dB.userSurName} </p:outputLabel>
+                        <p:commandButton value="Çıkış Yap" icon="ui-icon-power" actionListener="#{loginControl.cikis}"/>
                     </f:facet>
                 </p:menubar>
-
-
+                
+                
+                
+                
+                <p:lightBox iframe="true" id="lighbox3">
+                    <h:outputLink value="http://localhost:38774/jsfSatinAlma/faces/satinTalepFormu.xhtml" title="PrimeFaces HomePage">
+                        <h:outputText value="PrimeFaces HomePage" />
+                    </h:outputLink>
+                </p:lightBox>
+                
+                
+                
                 <p:separator />
-                <p:dataTable var="satinAlma" value="#{satinAlmaMenuView.listele()}">
-                     <f:facet name="header">
-                        Satın Alma Talepleri
-                    </f:facet>
-                    
-                    
-                    <p:column headerText="Kategori">
-                        <h:outputText value="#{satinAlma.tedarikci_adi}" />
-                    </p:column>
 
-                    <p:column headerText="Tedarikçi ">
-                        <h:outputText value="#{satinAlma.tedarikci_adi}" />
-                    </p:column>
 
-                    <p:column headerText="Ürün" >
-                        <h:outputText value="#{satinAlma.urun_adi}" />
-                    </p:column>
+                <h:form>
+                    <p:dataTable var="satinAlma" value="#{satinAlmaMenuView.listele()}" rows="10"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+                        <p:column headerText="Kategori">
+                            <h:outputText value="#{satinAlma.kategori_adi}" />
+                        </p:column>
 
-                    <p:column headerText="Birim Fiyat">
-                        <h:outputText value="#{satinAlma.birimFiyat}" />
-                    </p:column>
-                    <p:column headerText="Adet">
-                        <h:outputText value="#{satinAlma.adet}" />
-                    </p:column>
-                    <p:column headerText="KDV">
-                        <h:outputText value="#{satinAlma.kdv}" />
-                    </p:column>
-                    <p:column headerText="Toplam Tutar">
-                        <h:outputText value="#{satinAlma.toplamTutar}" />
-                    </p:column>
-                    <p:column headerText="Genel Toplam">
-                        <h:outputText value="#{satinAlma.genelToplam}" />
-                    </p:column>
-                    <p:column headerText="Durum">
-                        <h:outputText value="#{satinAlma.durum}" />
-                    </p:column>
-                      <p:column headerText="Tarih">
-                          <h:outputText value="#{satinAlma.tarih}" />
-                    </p:column>
-                                      
-                </p:dataTable>
+                        <p:column headerText="Tedarikçi">
+                            <h:outputText value="#{satinAlma.tedarikci_adi}" />
+                        </p:column>
 
+                        <p:column headerText="Ürün">
+                            <h:outputText value="#{satinAlma.urun_adi}" />
+                        </p:column>
+
+                        <p:column headerText="Birim Fiyat">
+                            <h:outputText value="#{satinAlma.birimFiyat}"  />
+                        </p:column>
+
+
+
+                        <p:column headerText="Adet">
+                            <h:outputText value="#{satinAlma.adet}" />
+                        </p:column>
+                        <p:column headerText="KDV">
+                            <h:outputText value="#{satinAlma.kdv}" />
+                        </p:column>
+                        <p:column headerText="Toplam Tutar">
+                            <h:outputText value="#{satinAlma.toplamTutar}" />
+                        </p:column>
+                        <p:column headerText="Genel Toplam">
+                            <h:outputText value="#{satinAlma.genelToplam}" />
+                        </p:column>
+                        <p:column headerText="Durum">
+                            <h:outputText value="#{satinAlma.durum}" />
+                        </p:column>
+                        <p:column headerText="Tarih">
+                            <h:outputText value="#{satinAlma.tarih}" />
+                        </p:column>
+
+
+                        <p:column headerText="İşlemler">
+                            <h:commandButton action="#{satinAlmaMenuView.talepGeriAl(satinAlma.satinAlmaId)}" rendered="#{satinAlma.durum == 0}" value="Teklifi Geri Al"></h:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+
+
+                <!--
+                 <p:dataTable var="satinAlma" value="#{satinAlmaMenuView.listele()}">
+                      <f:facet name="header">
+                         Satın Alma Talepleri
+                     </f:facet>
+                     
+                     
+                     <p:column headerText="Kategori">
+                         <h:outputText value="#{satinAlma.kategori_adi}" />
+                     </p:column>
+ 
+                     <p:column headerText="Tedarikçi ">
+                         <h:outputText value="#{satinAlma.tedarikci_adi}" />
+                     </p:column>
+ 
+                     <p:column headerText="Ürün" >
+                         <h:outputText value="#{satinAlma.urun_adi}" />
+                     </p:column>
+ 
+                     <p:column headerText="Birim Fiyat">
+                         <h:outputText value="#{satinAlma.birimFiyat}" />
+                     </p:column>
+                     <p:column headerText="Adet">
+                         <h:outputText value="#{satinAlma.adet}" />
+                     </p:column>
+                     <p:column headerText="KDV">
+                         <h:outputText value="#{satinAlma.kdv}" />
+                     </p:column>
+                     <p:column headerText="Toplam Tutar">
+                         <h:outputText value="#{satinAlma.toplamTutar}" />
+                     </p:column>
+                     <p:column headerText="Genel Toplam">
+                         <h:outputText value="#{satinAlma.genelToplam}" />
+                     </p:column>
+                     <p:column headerText="Durum">
+                         <h:outputText value="#{satinAlma.durum}" />
+                     </p:column>
+                       <p:column headerText="Tarih">
+                           <h:outputText value="#{satinAlma.tarih}" />
+                     </p:column>
+                                       
+                 </p:dataTable>
+                -->
 
 
 

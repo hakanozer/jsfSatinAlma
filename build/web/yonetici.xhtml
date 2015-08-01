@@ -17,6 +17,7 @@
 
             <h:form>  
                 <p:growl id="messages"  sticky="true" showDetail="true" />
+                <h:outputLabel style="display: none;" value="#{yoneticiListe}}"></h:outputLabel>
                 
 <script type="text/javascript">
    $(document).ready(function(){
@@ -62,8 +63,8 @@
                     <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />
 
                     <f:facet name="options">
-                        <p:outputLabel>Hoş Geldiniz: #{userLoginView.adi} #{userLoginView.soyadi} </p:outputLabel>
-                        <p:commandButton value="Çıkış Yap" actionListener="#{satinAlmaMenuView.cikis}"/>
+                        <p:outputLabel>Hoş Geldiniz: #{dB.userName} #{dB.userSurName} </p:outputLabel>
+                        <p:commandButton value="Çıkış Yap" actionListener="#{loginControl.cikis}"/>
                     </f:facet>
                 </p:menubar>
             </h:form>

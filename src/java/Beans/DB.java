@@ -9,7 +9,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.faces.bean.ManagedBean;
 
+@ManagedBean
 public class DB {
 
     // db Değişkenleri
@@ -18,6 +20,42 @@ public class DB {
     String dbName = "satinalma";
     String dbUName = "root";
     String dbUPass = "aaaaaa";
+    
+    public static String siteUrl = "http://localhost:38774/jsfSatinAlma/faces/";
+    public static String seviye = "";
+    private  String userName = "";
+    private  String userSurName = "";
+    private  String userId = "";
+    
+    public static String yazuserName = "";
+    public static String yazuserSurName = "";
+    public static String yazuserId = "";
+    
+    public String getUserName() {
+        return this.yazuserName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserSurName() {
+        return this.yazuserSurName;
+    }
+
+    public void setUserSurName(String userSurName) {
+        this.userSurName = userSurName;
+    }
+
+    public String getUserId() {
+        return this.yazuserId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+    
+    
 
     // Bağlantı değişkenleri
     Connection conn = null;

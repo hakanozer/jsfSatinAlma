@@ -1,7 +1,7 @@
 package Beans;
 
-import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -13,60 +13,45 @@ import javax.faces.event.ActionEvent;
 @ManagedBean
 public class SatinAlmaMenuView {
 
-   
-    public void save() {
-        addMessage("Success", "Data saved");
-    }
-
-    public void update() {
-        addMessage("Success", "Data updated");
-    }
-
-    public void delete() {
-        addMessage("Success", "Data deleted");
-    }
-
-    public void addMessage(String summary, String detail) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-
     // çıkış yap
-    public void cikis(ActionEvent actionEvent) {
-        System.out.println("Çıkış Yap");
-        try {
-            ExternalContext git = FacesContext.getCurrentInstance().getExternalContext();
-            git.redirect("faces/index.xhtml?faces-redirect=true");
-        } catch (Exception e) {
-        }
-
-    }
-    
-    
-    
+    ExternalContext git = FacesContext.getCurrentInstance().getExternalContext();
+    DB db = new DB(); 
     //Satın alma Form Listeleme
-    public List<satinAlma> listele() {
+    public List<SatinAlmaListe> listele() {
 
-    List<satinAlma> liste = new ArrayList<>();
-                DB db = new DB();
+    if(DB.seviye.equals("1")){
+       
+    }else {
+        try {
+                DB.seviye = "";
+                git.redirect(DB.siteUrl+"index.xhtml");
+            } catch (Exception e) {
+            } 
+    }    
+    
+       
+    List<SatinAlmaListe> liste = new ArrayList<>();
+                
             System.out.println("sssssssssss !!!!!");    
                 
         try {
-            ResultSet rs = db.baglan().executeQuery("Select * from satinalmaform");
+            ResultSet rs = db.baglan().executeQuery("SELECT *from satinalmaform AS satin left JOIN  kategori as kat on  kat.kategori_id = satin.kategori_id order by satin.durum asc");
                  
             
             System.out.println("TESSSSSS !!!!!");
             
             while (rs.next()) {
-                satinAlma obj = new satinAlma();
+                SatinAlmaListe obj = new SatinAlmaListe();
                 
                 System.out.println("BASARILI !!!!!");
-                
-                 obj.setTedarikci_adi(rs.getString("tedarikci_adi"));
+                obj.setSatinAlmaId(rs.getString("satin.id"));
+                obj.setKategori_id(rs.getInt("kat.kategori_id"));
+                obj.setKategori_adi(rs.getString("kat.adi"));
+                obj.setTedarikci_adi(rs.getString("satin.tedarikci_adi"));
                 obj.setUrun_adi(rs.getString("urun_adi"));
                 obj.setBirimFiyat(rs.getFloat("birimFiyat"));
-                obj.setAdet(rs.getFloat("adet"));
-                obj.setKdv(rs.getFloat("kdv"));
+                obj.setAdet(rs.getInt("adet"));
+                obj.setKdv(rs.getInt("kdv"));
                 obj.setToplamTutar(rs.getFloat("toplamTutar"));
                 obj.setGenelToplam(rs.getFloat("genelToplam"));
                 obj.setAdminID(rs.getInt("adminID"));
@@ -75,8 +60,6 @@ public class SatinAlmaMenuView {
 
                 liste.add(obj);
 
-                               
-                
             }
 
         } catch (Exception e) {
@@ -98,5 +81,9 @@ public class SatinAlmaMenuView {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
+    
+    public void talepGeriAl(String id) throws SQLException {
+        int geriDurum = db.baglan().executeUpdate("update satinalmaform set durum = '6' where id = '"+id+"'");
+    }
     
 }

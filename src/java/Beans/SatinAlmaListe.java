@@ -4,20 +4,39 @@ package Beans;
 import javax.faces.bean.ManagedBean;
 
 @ManagedBean(name = "satinAlma")
-public class satinAlma {
+public class SatinAlmaListe {
     
     private int kategori_id;
+    private String satinAlmaId;
+    private String kategori_adi = "";
     private String tedarikci_adi="";
     private String urun_adi="";
     private Float birimFiyat;
-    private Float adet;
-    private Float kdv;
+    private int adet;
+    private int kdv;
     private Float toplamTutar;
     private Float genelToplam;
     private int adminID;
     private int durum;
     private String tarih;
 
+    public String getSatinAlmaId() {
+        return satinAlmaId;
+    }
+
+    public void setSatinAlmaId(String satinAlmaId) {
+        this.satinAlmaId = satinAlmaId;
+    }
+
+    
+    public String getKategori_adi() {
+        return kategori_adi;
+    }
+
+    public void setKategori_adi(String kategori_adi) {
+        this.kategori_adi = kategori_adi;
+    }
+    
     public int getKategori_id() {
         return kategori_id;
     }
@@ -50,19 +69,19 @@ public class satinAlma {
         this.birimFiyat = birimFiyat;
     }
 
-    public Float getAdet() {
+    public int getAdet() {
         return adet;
     }
 
-    public void setAdet(Float adet) {
+    public void setAdet(int adet) {
         this.adet = adet;
     }
 
-    public Float getKdv() {
+    public int getKdv() {
         return kdv;
     }
 
-    public void setKdv(Float kdv) {
+    public void setKdv(int kdv) {
         this.kdv = kdv;
     }
 

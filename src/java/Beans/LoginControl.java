@@ -12,16 +12,17 @@ import javax.faces.event.ActionEvent;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean
-public class UserLoginView {
+public class LoginControl {
 
     private String username;
-
     private String password;
 
     // giriş kullanıcı bilgileri
     private static String adi;
     private static String soyadi;
     private static String ID;
+    
+    ExternalContext git = FacesContext.getCurrentInstance().getExternalContext();
 
     public String getAdi() {
         return adi;
@@ -63,7 +64,11 @@ public class UserLoginView {
         this.password = password;
     }
 
+
+    
     public void login(ActionEvent event) throws SQLException, IOException {
+        
+        
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
         boolean loggedIn = false;
@@ -73,35 +78,27 @@ public class UserLoginView {
         ResultSet rs = db.baglan().executeQuery("select *from admin where kul_adi = '" + username + "' and sifre = '" + password + "' limit 0,1");
 
         if (rs.next()) { // kullanıcıdan en az 1 tane var
+
             
-            setAdi(rs.getString("adi"));
-            setSoyadi(rs.getString("soyadi"));
-            setID(rs.getString("id"));
+            DB.yazuserName = rs.getString("adi");
+            DB.yazuserSurName = rs.getString("soyadi");
+            DB.yazuserId = rs.getString("id");
             
-            
-            System.out.println(adi);
-            System.out.println(soyadi);
-            System.out.println(ID);
-            
+
             loggedIn = true;
-          
+            DB.seviye =  rs.getString("seviye");
         
             
-           message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Hoş Geldiniz ", adi + " " + soyadi);
-           
-        
-            ExternalContext git = FacesContext.getCurrentInstance().getExternalContext();
-       
-         
-            
+           message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Hoş Geldiniz ", db.getUserName() + " " + db.getUserSurName());
             if (rs.getString("seviye").equals("0")) {
                 try {
-                           
                   git.getFlash().setKeepMessages(true);
                   git.getFlash().setRedirect(true);
-                   
+                  
+                 
                  FacesContext.getCurrentInstance().addMessage(null, message);  
-                 git.redirect("faces/yonetici.xhtml?faces-redirect=true");
+                 git.redirect(DB.siteUrl+"yonetici.xhtml");
+                 
                       
                 } catch (Exception e) {
                     
@@ -111,10 +108,10 @@ public class UserLoginView {
              
             if (rs.getString("seviye").equals("1")) {
                 try {
-                git.getFlash().setKeepMessages(true);
+            git.getFlash().setKeepMessages(true);
                   git.getFlash().setRedirect(true);
                FacesContext.getCurrentInstance().addMessage(null, message);
-                git.redirect("faces/satinalma.xhtml?faces-redirect=true");
+                git.redirect(DB.siteUrl+"satinalma.xhtml");
                 } catch (Exception e) {
                     
                     System.out.println("satinalma Giris Hatas" + e); 
@@ -137,5 +134,16 @@ public class UserLoginView {
     
     
 
+     // çıkış yap
+    public void cikis(ActionEvent actionEvent) {
+        System.out.println("Çıkış Yap");
+        try {
+            DB.seviye = "";
+            git.redirect(DB.siteUrl+"index.xhtml");
+        } catch (Exception e) {
+        }
+
+    }
+    
 
 }
