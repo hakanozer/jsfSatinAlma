@@ -4,7 +4,18 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    
+
+    <style>
+
+        input {
+            width: 450px;
+        }
+
+        body {
+            background-color: white;
+        }
+    </style> 
+
     <f:view contentType="text/html">
         <h:head>
             <f:facet name="first">
@@ -13,17 +24,62 @@
             </f:facet>
         </h:head>
         <h:body>
-        
-            
-            
-    <h:form>
-    <p:growl id="msgs" showDetail="true" />
- 
 
-</h:form>
-            
-            
-    
-    </h:body>
+
+
+            <h:form>
+
+
+                <p:panel header="Satın Alma Talep Formu">
+                    <h:panelGrid columns="2" cellpadding="5"> 
+                        
+                        <h:outputText value="Lütfen Kategori Seçiniz: " />  
+                        <p:selectOneMenu value="#{satinTalepFormu.id}" id="cat">  
+                            <f:selectItem itemLabel="Kategori Seçin" itemValue="" />
+                            <f:selectItems value="#{satinTalepFormu.categoryName}" /> 
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Tedarikçi Firma:" for="acSimple" />
+                        <p:autoComplete style="width: 350px;" id="acSimple" value="#{satinTalepFormu.unvan}" completeMethod="#{tedarikciListe.complete}"  />
+
+                        <p:outputLabel value="Ürün Adı:" for="acSimplel" />
+                        <p:autoComplete style="width: 350px;"  id="acSimplel" value="#{satinTalepFormu.urunAdi}" completeMethod="#{satinTalepFormu.completeUrun}"  />
+
+                        <p:outputLabel value="Birim Fiyat:" for="birimFiyat" />
+                        <p:inputText type="number" style="width: 100px;" placeholder="0.00" value="#{satinTalepFormu.birimFiyat}" id="birimFiyat">
+                            <p:ajax event="keyup" update="toplamTutar" listener="#{satinTalepFormu.kdvsizToplamTutar}" />
+                        </p:inputText>
+                        
+                        <p:outputLabel value="Adet:" for="adet" />
+                        <p:inputText type="number" placeholder="0" value="#{satinTalepFormu.adet}" style="width: 100px;" id="adet">
+                            <p:ajax event="keyup" update="toplamTutar" listener="#{satinTalepFormu.kdvsizToplamTutar}" />
+                        </p:inputText>
+                        
+                        <p:outputLabel for="kdv" value="KDV:"  />
+                        <p:selectOneRadio id="kdv" value="#{satinTalepFormu.kdv}">
+                            <p:ajax event="valueChange" update="gelenToplam" listener="#{satinTalepFormu.genelToplamTutar}" />
+                            <f:selectItem itemLabel="%8" itemValue="8" />
+                            <f:selectItem itemLabel="%18" itemValue="18" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel value="Toplam Tutar:" for="toplamTutar" />
+                        <p:inputText  readonly="true" style="width: 100px;" value="#{satinTalepFormu.toplamTutar}" placeholder="0.00" id="toplamTutar" />
+
+                        <p:outputLabel value="Genel Toplam:" for="gelenToplam" />
+                        <p:inputText  readonly="true" style="width: 100px;" value="#{satinTalepFormu.genelToplam}" placeholder="0.00" id="gelenToplam" />
+
+                        <p:commandButton style="width: 100px; margin-left: 85px;" value="Temizle" type="reset"  />
+                        <p:commandButton style="width: 100px;" value="Kaydet" action="#{satinTalepFormu.satinAlKaydet}"   />
+                        
+                        
+                    </h:panelGrid>                
+                </p:panel>
+
+
+            </h:form>
+
+
+
+        </h:body>
     </f:view>
 </html>
