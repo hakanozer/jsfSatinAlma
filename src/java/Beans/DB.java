@@ -17,11 +17,11 @@ public class DB {
     // db Değişkenleri
     String url = "jdbc:mysql://localhost:3306/";
     String forname = "com.mysql.jdbc.Driver";
-    String dbName = "satinalma";
+    String dbName = "satinalma?characterEncoding=utf8";
     String dbUName = "root";
-    String dbUPass = "aaaaaa";
+    String dbUPass = "112233";
     
-    public static String siteUrl = "http://localhost:38774/jsfSatinAlma/faces/";
+    public static String siteUrl = "http://localhost:8080/jsfSatinAlma/faces/";
     public static String seviye = "";
     private  String userName = "";
     private  String userSurName = "";
@@ -74,4 +74,9 @@ public class DB {
         return st;
     }
 
+    
+      public void closeConnection() throws Exception{
+        conn.close();
+    }
+    
 }

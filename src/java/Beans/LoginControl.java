@@ -73,7 +73,7 @@ public class LoginControl {
         FacesMessage message = null;
         boolean loggedIn = false;
 
-        // sql sorgu yapılıyor
+     
         DB db = new DB();
         ResultSet rs = db.baglan().executeQuery("select *from admin where kul_adi = '" + username + "' and sifre = '" + password + "' limit 0,1");
 

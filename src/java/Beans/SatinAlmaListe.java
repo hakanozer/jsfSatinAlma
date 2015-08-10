@@ -19,6 +19,24 @@ public class SatinAlmaListe {
     private int adminID;
     private int durum;
     private String tarih;
+    private String insertUserName;
+    private String insert_UserSurName;
+
+    public String getInsert_UserSurName() {
+        return insert_UserSurName;
+    }
+
+    public void setInsert_UserSurName(String insert_UserSurName) {
+        this.insert_UserSurName = insert_UserSurName;
+    }
+    
+    public String getInsertUserName() {
+        return insertUserName;
+    }
+
+    public void setInsertUserName(String insertUserName) {
+        this.insertUserName = insertUserName;
+    }
 
     public String getSatinAlmaId() {
         return satinAlmaId;

@@ -3,12 +3,14 @@ package Beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
+import org.primefaces.context.RequestContext;
 
 @ManagedBean
 public class SatinAlmaMenuView {
@@ -17,7 +19,7 @@ public class SatinAlmaMenuView {
     ExternalContext git = FacesContext.getCurrentInstance().getExternalContext();
     DB db = new DB(); 
     //Satın alma Form Listeleme
-    public List<SatinAlmaListe> listele() {
+    public List<SatinAlmaListe> listele() throws Exception {
 
     if(DB.seviye.equals("1")){
        
@@ -32,13 +34,9 @@ public class SatinAlmaMenuView {
        
     List<SatinAlmaListe> liste = new ArrayList<>();
                 
-            System.out.println("sssssssssss !!!!!");    
-                
-        try {
-            ResultSet rs = db.baglan().executeQuery("SELECT *from satinalmaform AS satin left JOIN  kategori as kat on  kat.kategori_id = satin.kategori_id order by satin.durum asc");
-                 
-            
-            System.out.println("TESSSSSS !!!!!");
+          try {
+            ResultSet rs = db.baglan().executeQuery("SELECT * from satinalmaform AS satin LEFT JOIN  kategori as kat on  kat.kategori_id = satin.kategori_id WHERE   satin.durum in ('0','2') order by satin.durum asc");
+       
             
             while (rs.next()) {
                 SatinAlmaListe obj = new SatinAlmaListe();
@@ -67,23 +65,28 @@ public class SatinAlmaMenuView {
             System.err.println("SatınAlma Bilgi Hatası : " + e);
 
         }
-
+finally{
+        
+        db.closeConnection();
+              System.out.println("DB KAPATILDI!");
+        
+          }
         return liste;
     }
     
+    public void info() {
+      SatinAlmaListe st = new SatinAlmaListe();
+       FacesContext context = FacesContext.getCurrentInstance();
+       context.addMessage(null, new FacesMessage("Talep İptal", "Satın Alma Talebiniz İptal Edildi!"));
+    }
     
-   public void buttonAction(ActionEvent actionEvent) {
-        addMessage("Welcome to Primefaces!!");
-    }
-     
-    public void addMessage(String summary) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
+  
     
     
     public void talepGeriAl(String id) throws SQLException {
         int geriDurum = db.baglan().executeUpdate("update satinalmaform set durum = '6' where id = '"+id+"'");
-    }
+        
+           }
     
+
 }

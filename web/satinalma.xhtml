@@ -9,8 +9,10 @@
 
     <style>
         table {
-            font-size: 13px;
+            
+             font-size: 13px;
         }
+       
     </style>
 
     <f:view contentType="text/html">
@@ -19,11 +21,12 @@
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
 
-                <title>Admin Giriş</title>
+                <title>Satınalma Sayfası</title>
             </f:facet>
         </h:head>
 
         <h:body>
+
             <h:form>  
 
                 <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
@@ -33,9 +36,17 @@
                         $('.ui-growl.ui-widget').delay(3000).slideUp(1000);
                     })
                 </script>
+            
+                <p:menubar style="font-size: 16px;">
 
-                <p:menubar>
-
+                    <p:submenu label="Satın Alma Takip" icon="ui-icon-document">
+                  
+                        <p:submenu label="Rapor" icon="ui-icon-contact">
+                            <p:menuitem value="SatinAlma İptal " url="#" />
+                            <p:menuitem value="SatinAlma Bekleme" url="#" />
+                        </p:submenu>
+                    </p:submenu>
+                 
                     <p:submenu label="Yönetim" icon="ui-icon-gear">
                         <p:menuitem value="Kategori" url="#" />
                         <p:menuitem value="Ürünler" url="#" />
@@ -43,47 +54,43 @@
                         <p:separator />
                         <p:menuitem value="Üye Kaydı" url="#" />
                     </p:submenu>
-
-                    <p:submenu label="Satın Alma" icon="ui-icon-script">
-
-
+                    
+                  
 
 
-                        <p:menuitem value="Satın Alma Talep" url="#" icon="ui-icon-circle-plus" />
-                        <p:menuitem value="Satın Alma İptal" url="#" icon="ui-icon-circle-close" />
-                        <p:menuitem value="Satın Alma Takip" url="#" icon="ui-icon-info" />
-                    </p:submenu>
 
-                    <p:submenu  label="Rapor" icon="ui-icon-help">
-                        <p:menuitem value="Contents" url="#" />
-                    </p:submenu>
-
-
-                    <f:facet name="options">
-
-                        <p:outputLabel> Hoş Geldiniz :#{dB.userName} #{dB.userSurName} </p:outputLabel>
-                        <p:commandButton value="Çıkış Yap" icon="ui-icon-power" actionListener="#{loginControl.cikis}"/>
+                   <f:facet name="options">
+                        <p:outputLabel value="Hoşgeldiniz: " style="font-size: 16px; color: royalblue"></p:outputLabel>
+                        <p:outputLabel style="font-size: 16px; margin-right: 10px; ">#{dB.userName} #{dB.userSurName}  </p:outputLabel>
+                        <p:outputLabel value="Sistem Giriş: " style="font-size: 15px; color: royalblue"></p:outputLabel>
+                        <p:outputLabel value="#{currentDate}" style="margin-right: 5px; font-size: 14px;">
+                           <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" type="date" /> 
+                            
+                        </p:outputLabel>
+                    
+                        <p:commandButton style="font-size: 14px; "  icon="ui-icon-circle-close" value="Çıkış Yap" actionListener="#{loginControl.cikis}"/>
                     </f:facet>
+
+
                 </p:menubar>
                 
                 
-                               
-                <p:lightBox iframe="true" id="lighbox3"  width="1000px" height="490px">
-                    <h:outputLink value="http://localhost:38774/jsfSatinAlma/faces/satinTalepFormu.xhtml" title="Satın Alma Talep Formu">
-                        <h:outputText value="Satın Alma Talep Formu" />
+                
+              
+                <p:separator />
+                <p:lightBox iframe="true" id="lighbox3"  width="1000px" height="490px" widgetVar="light"  >
+                    <h:outputLink value="http://localhost:8080/jsfSatinAlma/faces/satinTalepFormu.xhtml" title="Satın Alma Talep Formu"  > 
+                        <p:commandButton value="Satın Alma Talep" icon="ui-icon-folder-open" style="font-size: 14px;"></p:commandButton>
                     </h:outputLink>
-                </p:lightBox>
-                
-                
-                
+                </p:lightBox>  
+
                 <p:separator />
 
-
                 <h:form>
-                    <p:dataTable var="satinAlma" value="#{satinAlmaMenuView.listele()}" rows="10"
+                    <p:dataTable var="satinAlma" value="#{satinAlmaMenuView.listele()}" rows="8"
                                  paginator="true"
-                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 rowsPerPageTemplate="5,10,15">
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} "
+                                 rowsPerPageTemplate="10,15,20">
                         <p:column headerText="Kategori">
                             <h:outputText value="#{satinAlma.kategori_adi}" />
                         </p:column>
@@ -97,86 +104,57 @@
                         </p:column>
 
                         <p:column headerText="Birim Fiyat">
-                            <h:outputText value="#{satinAlma.birimFiyat}"  />
+                            <h:outputText value="#{satinAlma.birimFiyat}"  >
+                            <f:convertNumber type="currency" currencySymbol="TL" />
+                            </h:outputText>
                         </p:column>
-
-
 
                         <p:column headerText="Adet">
-                            <h:outputText value="#{satinAlma.adet}" />
+                            <h:outputText value="#{satinAlma.adet}">
+                             <f:convertNumber type="number" />
+                            </h:outputText>
                         </p:column>
                         <p:column headerText="KDV">
-                            <h:outputText value="#{satinAlma.kdv}" />
+                            <h:outputText value="#{satinAlma.kdv}" >
+                             <f:convertNumber type="number" />
+                            </h:outputText>
                         </p:column>
                         <p:column headerText="Toplam Tutar">
-                            <h:outputText value="#{satinAlma.toplamTutar}" />
+                            <h:outputText value="#{satinAlma.toplamTutar}" >
+                            <f:convertNumber type="currency" currencySymbol="TL" />
+                            </h:outputText>
                         </p:column>
                         <p:column headerText="Genel Toplam">
-                            <h:outputText value="#{satinAlma.genelToplam}" />
+                            <h:outputText value="#{satinAlma.genelToplam}" >
+                            <f:convertNumber type="currency" currencySymbol="TL" />
+                            </h:outputText>
                         </p:column>
+                      <!--
                         <p:column headerText="Durum">
                             <h:outputText value="#{satinAlma.durum}" />
-                        </p:column>
+                        </p:column> -->
                         <p:column headerText="Tarih">
                             <h:outputText value="#{satinAlma.tarih}" />
                         </p:column>
 
 
                         <p:column headerText="İşlemler">
-                            <h:commandButton action="#{satinAlmaMenuView.talepGeriAl(satinAlma.satinAlmaId)}" rendered="#{satinAlma.durum == 0}" value="Teklifi Geri Al"></h:commandButton>
+                            <p:commandButton id="satinAlmaBttnInfo"  title="Talebi Geri Al" value="Geri Al" action="#{satinAlmaMenuView.talepGeriAl(satinAlma.satinAlmaId)}" rendered="#{satinAlma.durum == 0}"  actionListener="#{satinAlmaMenuView.info}" update="growl" ajax="false" icon="ui-icon-arrowreturnthick-1-e" >
+                           </p:commandButton>
+                            
+                            
+                            <p:tooltip style="font-size: 12px;" id="toolTipGrow" for="satinAlmaBttnInfo" value="Bu işlem satın alma talebinizi iptal edecektir "
+               showEffect="clip" hideEffect="explode" />
+                           
+                            <p:outputLabel style="color: #00cc33; font-weight: bold;" value="ONAYLANDI"  rendered="#{satinAlma.durum == 2}" title="Talebiniz Onaylandı!"  ></p:outputLabel>
+                           
                         </p:column>
 
                     </p:dataTable>
+
                 </h:form>
 
-
-                <!--
-                 <p:dataTable var="satinAlma" value="#{satinAlmaMenuView.listele()}">
-                      <f:facet name="header">
-                         Satın Alma Talepleri
-                     </f:facet>
-                     
-                     
-                     <p:column headerText="Kategori">
-                         <h:outputText value="#{satinAlma.kategori_adi}" />
-                     </p:column>
- 
-                     <p:column headerText="Tedarikçi ">
-                         <h:outputText value="#{satinAlma.tedarikci_adi}" />
-                     </p:column>
- 
-                     <p:column headerText="Ürün" >
-                         <h:outputText value="#{satinAlma.urun_adi}" />
-                     </p:column>
- 
-                     <p:column headerText="Birim Fiyat">
-                         <h:outputText value="#{satinAlma.birimFiyat}" />
-                     </p:column>
-                     <p:column headerText="Adet">
-                         <h:outputText value="#{satinAlma.adet}" />
-                     </p:column>
-                     <p:column headerText="KDV">
-                         <h:outputText value="#{satinAlma.kdv}" />
-                     </p:column>
-                     <p:column headerText="Toplam Tutar">
-                         <h:outputText value="#{satinAlma.toplamTutar}" />
-                     </p:column>
-                     <p:column headerText="Genel Toplam">
-                         <h:outputText value="#{satinAlma.genelToplam}" />
-                     </p:column>
-                     <p:column headerText="Durum">
-                         <h:outputText value="#{satinAlma.durum}" />
-                     </p:column>
-                       <p:column headerText="Tarih">
-                           <h:outputText value="#{satinAlma.tarih}" />
-                     </p:column>
-                                       
-                 </p:dataTable>
-                -->
-
-
-
-
+                
             </h:form>
 
 
