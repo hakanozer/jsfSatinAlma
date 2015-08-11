@@ -19,9 +19,9 @@ public class DB {
     String forname = "com.mysql.jdbc.Driver";
     String dbName = "satinalma?characterEncoding=utf8";
     String dbUName = "root";
-    String dbUPass = "112233";
+    String dbUPass = "aaaaaa";
     
-    public static String siteUrl = "http://localhost:8080/jsfSatinAlma/faces/";
+    public static String siteUrl = "http://localhost:38774/jsfSatinAlma/faces/";
     public static String seviye = "";
     private  String userName = "";
     private  String userSurName = "";

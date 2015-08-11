@@ -350,10 +350,13 @@ public class satinTalepFormu {
     
     
     public void reset() {
-        RequestContext.getCurrentInstance().reset("form:form");
-      
+        //RequestContext.getCurrentInstance().reset("form:form");
+        //FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("satinTalepFormu");
+        toplamTutar = 0.00f;
+        genelToplam = 0.00f;
+        birimFiyat = 0.00f;
+        adet = 0;
+        
+        System.out.println("Rsetleme Çalıştı");
     }
-    
-      
-    
 }

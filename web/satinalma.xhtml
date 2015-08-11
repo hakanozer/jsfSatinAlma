@@ -34,6 +34,9 @@
                 <script type="text/javascript">
                     $(document).ready(function () {
                         $('.ui-growl.ui-widget').delay(3000).slideUp(1000);
+                        
+                        
+                      
                     })
                 </script>
             
@@ -41,9 +44,15 @@
                 
                 <p:menubar style="font-size: 16px;">
 
-                 
-               
+               <p:menuitem value="Satın Alma Talep " url="#">
+               <p:lightBox iframe="true" id="lighbox3"  width="1000px" height="490px" widgetVar="light"  >
+                    <h:outputLink value="http://localhost:38774/jsfSatinAlma/faces/satinTalepFormu.xhtml" title="Satın Alma Talep Formu"  > 
+                        <p:commandButton value="Satın Alma Talep" icon="ui-icon-folder-open" style="font-size: 14px;"></p:commandButton>
+                    </h:outputLink>
+                </p:lightBox> 
+               </p:menuitem>
                     
+               
                     <p:submenu label="Satın Alma Takip" icon="ui-icon-document">
                   
                         <p:submenu label="Rapor" icon="ui-icon-contact">
@@ -85,11 +94,7 @@
                 
               
                 <p:separator />
-                <p:lightBox iframe="true" id="lighbox3"  width="1000px" height="490px" widgetVar="light"  >
-                    <h:outputLink value="http://localhost:8080/jsfSatinAlma/faces/satinTalepFormu.xhtml" title="Satın Alma Talep Formu"  > 
-                        <p:commandButton value="Satın Alma Talep" icon="ui-icon-folder-open" style="font-size: 14px;"></p:commandButton>
-                    </h:outputLink>
-                </p:lightBox>  
+                
 
                 <p:separator />
 

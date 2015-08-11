@@ -18,12 +18,23 @@
              
     </style> 
 
+    
+    
+    
     <f:view contentType="text/html">
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title>Satın Alma Talep</title>
             </f:facet>
+            
+            <script>
+        $(document).ready(function(){
+            $('button[type="reset"]').click(function(){
+                //$('#form').trigger("reset");
+            });
+        })
+    </script>
         </h:head>
         <h:body>
 
@@ -70,7 +81,7 @@
                         <p:outputLabel value="Genel Toplam:" for="gelenToplam" />
                         <p:inputText  readonly="true" style="width: 100px;" value="#{satinTalepFormu.genelToplam}" placeholder="0.00" id="gelenToplam" />
 
-                        <p:commandButton  type="reset" value="Temizle" update="panelform" process="@this" actionListener="#{satinTalepFormu.reset}" />
+                        <p:commandButton  value="Temizle" update="panelform" process="@this" actionListener="#{satinTalepFormu.reset}" />
                         <p:commandButton style="width: 100px;"  value="Kaydet" action="#{satinTalepFormu.satinAlKaydet}" actionListener="#{satinTalepFormu.destroyWorld}" update="kayit"   />
                </h:panelGrid>                
                 </p:panel>
@@ -78,7 +89,7 @@
 
             </h:form>
 
-
+           
 
         </h:body>
     </f:view>

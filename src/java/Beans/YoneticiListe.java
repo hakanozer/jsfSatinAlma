@@ -1,4 +1,3 @@
-
 package Beans;
 
 import java.sql.ResultSet;
@@ -10,46 +9,38 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
-
-
-
-
+import org.primefaces.event.CloseEvent;
 
 @ManagedBean()
 public class YoneticiListe {
-  
-       // çıkış yap
+
+    
+    // çıkış yap
     ExternalContext git = FacesContext.getCurrentInstance().getExternalContext();
-    DB db = new DB(); 
+    DB db = new DB();
+
     //Satın alma Form Listeleme
+
     public List<SatinAlmaListe> listele() throws Exception {
 
-    if(DB.seviye.equals("0")){
-       
-    }else {
-        try {
+        if (DB.seviye.equals("0")) {
+
+        } else {
+            try {
                 DB.seviye = "";
-                git.redirect(DB.siteUrl+"index.xhtml");
+                git.redirect(DB.siteUrl + "index.xhtml");
             } catch (Exception e) {
-            } 
-    }    
-    
-       
-    List<SatinAlmaListe> liste = new ArrayList<>();
-                
-          try {
+            }
+        }
+
+        List<SatinAlmaListe> liste = new ArrayList<>();
+
+        try {
             ResultSet rs = db.baglan().executeQuery("SELECT * from satinalmaform AS satin LEFT JOIN  kategori as kat on  kat.kategori_id = satin.kategori_id WHERE satin.durum='0'  order by satin.durum asc");
-       
-            
+
             while (rs.next()) {
                 SatinAlmaListe obj = new SatinAlmaListe();
-                
+
                 System.out.println("BASARILI !!!!!");
                 obj.setSatinAlmaId(rs.getString("satin.id"));
                 obj.setKategori_id(rs.getInt("kat.kategori_id"));
@@ -75,39 +66,35 @@ public class YoneticiListe {
 
             System.err.println("Yönetici Bilgi Hatası : " + e);
 
+        } finally {
+
+            db.closeConnection();
+            System.out.println("DB KAPATILDI!");
+
         }
-finally{
-        
-        db.closeConnection();
-              System.out.println("DB KAPATILDI!");
-        
-          }
         return liste;
     }
 
-    
     public List<SatinAlmaListe> onaylanan_Liste() throws Exception {
 
-    if(DB.seviye.equals("0")){
-       
-    }else {
-        try {
+        if (DB.seviye.equals("0")) {
+
+        } else {
+            try {
                 DB.seviye = "";
-                git.redirect(DB.siteUrl+"index.xhtml");
+                git.redirect(DB.siteUrl + "index.xhtml");
             } catch (Exception e) {
-            } 
-    }    
-    
-       
-    List<SatinAlmaListe> Onay_liste = new ArrayList<>();
-                
-          try {
+            }
+        }
+
+        List<SatinAlmaListe> Onay_liste = new ArrayList<>();
+
+        try {
             ResultSet rs = db.baglan().executeQuery("SELECT * from satinalmaform AS satin LEFT JOIN  kategori as kat on  kat.kategori_id = satin.kategori_id WHERE satin.durum='2'  order by satin.durum asc");
-       
-            
+
             while (rs.next()) {
                 SatinAlmaListe obj = new SatinAlmaListe();
-                
+
                 System.out.println("BASARILI !!!!!");
                 obj.setSatinAlmaId(rs.getString("satin.id"));
                 obj.setKategori_id(rs.getInt("kat.kategori_id"));
@@ -133,42 +120,35 @@ finally{
 
             System.err.println("Yönetici Bilgi Hatası : " + e);
 
+        } finally {
+
+            db.closeConnection();
+            System.out.println("DB KAPATILDI!");
+
         }
-finally{
-        
-        db.closeConnection();
-              System.out.println("DB KAPATILDI!");
-        
-          }
         return Onay_liste;
     }
-    
-    
-    
-    
-    
-      public List<SatinAlmaListe> iptal_Liste() throws Exception {
 
-    if(DB.seviye.equals("0")){
-       
-    }else {
-        try {
+    public List<SatinAlmaListe> iptal_Liste() throws Exception {
+
+        if (DB.seviye.equals("0")) {
+
+        } else {
+            try {
                 DB.seviye = "";
-                git.redirect(DB.siteUrl+"index.xhtml");
+                git.redirect(DB.siteUrl + "index.xhtml");
             } catch (Exception e) {
-            } 
-    }    
-    
-       
-    List<SatinAlmaListe> iptal_liste = new ArrayList<>();
-                
-          try {
+            }
+        }
+
+        List<SatinAlmaListe> iptal_liste = new ArrayList<>();
+
+        try {
             ResultSet rs = db.baglan().executeQuery("SELECT * from satinalmaform AS satin LEFT JOIN  kategori as kat on  kat.kategori_id = satin.kategori_id WHERE satin.durum='5'  order by satin.durum asc");
-       
-            
+
             while (rs.next()) {
                 SatinAlmaListe obj = new SatinAlmaListe();
-                
+
                 System.out.println("BASARILI !!!!!");
                 obj.setSatinAlmaId(rs.getString("satin.id"));
                 obj.setKategori_id(rs.getInt("kat.kategori_id"));
@@ -194,45 +174,63 @@ finally{
 
             System.err.println("Yönetici Bilgi Hatası : " + e);
 
+        } finally {
+
+            db.closeConnection();
+            System.out.println("DB KAPATILDI!");
+
         }
-finally{
-        
-        db.closeConnection();
-              System.out.println("DB KAPATILDI!");
-        
-          }
         return iptal_liste;
     }
-    
+
+    //0 ise okunmadı, 1 ise okudu, 2 ise okundu onaylandı, 3 ise okundu red alındı,5 ise iptal edildi.
+    public void talepIptalEt(String id) throws SQLException {
+        int geriDurum = db.baglan().executeUpdate("update satinalmaform set durum = '5' where id = '" + id + "'");
+
+    }
+
+    public void talepOnayla(String id) throws SQLException {
+        int geriDurum = db.baglan().executeUpdate("update satinalmaform set durum = '2' where id = '" + id + "'");
+
+    }
+
+    public void infoOnay() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Talep Onay", "Satın Alma Talebi Onaylandı!"));
+    }
+
+    public void infoIptal() {
+        System.out.println("Onay Çalıştı");
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Talep İptal", "Satın Alma Talebi İptal Edildi!"));
+    }
 
     
+    private String sebep = "";
+
+    public String getSebep() {
+        return sebep;
+    }
+
+    public void setSebep(String sebep) {
+        this.sebep = sebep;
+    }
     
-    //0 ise okunmadı, 1 ise okudu, 2 ise okundu onaylandı, 3 ise okundu red alındı,5 ise iptal edildi.
-      public void talepIptalEt(String id) throws SQLException {
-        int geriDurum = db.baglan().executeUpdate("update satinalmaform set durum = '5' where id = '"+id+"'");
+    public void onay(String id) throws SQLException {
         
-       
+        int geriDurum = db.baglan().executeUpdate("update satinalmaform set durum = '2', sebep = '"+sebep+"' where id = '" + id + "'");
+        mesajEkle("Kayıt İşlemi", "Onay Başarılı Sonuçlandı");
+
     }
-      
-         public void talepOnayla(String id) throws SQLException {
-        int geriDurum = db.baglan().executeUpdate("update satinalmaform set durum = '2' where id = '"+id+"'");
-        
-       
+
+    public void ret(String id) throws SQLException {
+        int geriDurum = db.baglan().executeUpdate("update satinalmaform set durum = '5', sebep = '"+sebep+"' where id = '" + id + "'");
+        mesajEkle("Kayıt İşlemi", "Ret Başarılı Sonuçlandı");
     }
-         
-         
-         
-         public void infoOnay() {
-      FacesContext context = FacesContext.getCurrentInstance();
-       context.addMessage(null, new FacesMessage("Talep Onay", "Satın Alma Talebi Onaylandı!"));
+
+    
+    public void mesajEkle(String summary, String detail) {
+        FacesMessage onayMesaj = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, onayMesaj);
     }
-     
-         public void infoIptal() {
-      FacesContext context = FacesContext.getCurrentInstance();
-       context.addMessage(null, new FacesMessage("Talep İptal", "Satın Alma Talebi İptal Edildi!"));
-    }
-   
-   
-         
-       
 }
