@@ -41,7 +41,7 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES (1,'admin','admin','Volkan','OZTURK','volkan@shop90.com',0),(2,'test','1','Test','Test','test@test.com',1);
+INSERT INTO `admin` VALUES (1,'admin','admin','Volkan','OZTURK','volkan@shop90.com',0),(2,'test','1','Yusuf','PEKER','test@test.com',1);
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,9 +93,11 @@ CREATE TABLE `satinalmaform` (
   `adminID` int(11) NOT NULL,
   `durum` int(11) NOT NULL COMMENT '0 ise okunmadı, 1 ise okudu, 2 ise okundu onaylandı, 3 ise okundu red alındı,5 ise iptal edildi.',
   `tarih` datetime NOT NULL,
+  `insert_User` varchar(45) COLLATE utf8_turkish_ci DEFAULT NULL,
+  `insert_UserSurname` varchar(45) COLLATE utf8_turkish_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,7 +106,7 @@ CREATE TABLE `satinalmaform` (
 
 LOCK TABLES `satinalmaform` WRITE;
 /*!40000 ALTER TABLE `satinalmaform` DISABLE KEYS */;
-INSERT INTO `satinalmaform` VALUES (1,8,'KALE ELEKTRONİK DIŞ TİCARET A.Ş','IPHONE 5C 16 GB',700.00,10,18.00,7000.00,7800.00,0,0,'2015-07-25 16:31:50'),(2,7,'ELCA KOZMETİK LTD ŞTİ','4LÜ MUTFAK ÖNLÜK ELDİVEN SETİ',30.00,20,18.00,600.00,680.00,0,0,'2015-07-29 09:12:44'),(3,11,'MNG','SONY XPERIA Z2 CEP TELEFONU',190.00,10,8.00,1900.00,1980.00,0,0,'2015-07-28 19:12:44');
+INSERT INTO `satinalmaform` VALUES (37,16,'DIGICOM TEKNOLOJI ÜRÜNLERI A.S.','LEYE OTO BEBEK KOLTUĞU 0-13KG ',180.00,10,18.00,1800.00,2124.00,2,5,'2015-08-05 17:01:23','Yusuf','PEKER'),(40,2,'DIGICOM TEKNOLOJI ÜRÜNLERI A.S.','LG 32LB580V 32 SMART FULL HD LED TV',799.00,20,18.00,15980.00,18856.40,2,2,'2015-08-10 13:36:56','Yusuf','PEKER'),(42,7,'SERPORT ULUSLARARASI TİC.A.Ş.','KOCHBLUME PİŞİRME ÇİÇEĞİ',18.00,20,18.00,360.00,424.80,2,5,'2015-08-10 13:39:31','Yusuf','PEKER'),(43,2,'APEKS TEKSTİL DIŞ TİC.LTD.ŞTİ','ARMAĞAN 32 PARÇA ÇEYİZ SETİ',120.00,10,18.00,1200.00,1416.00,2,2,'2015-08-10 16:28:37','Yusuf','PEKER'),(44,4,'FİNSPOR DIŞ TİC. LTD. ŞTİ.','LEYE OTO BEBEK KOLTUĞU 0-13KG ',59.00,30,18.00,1770.00,2088.60,2,0,'2015-08-10 22:18:49','Yusuf','PEKER'),(45,3,'DIGICOM TEKNOLOJI ÜRÜNLERI A.S.','KOHLEMANN BUHARLI GIRGIRLI MOP',120.00,10,18.00,1200.00,1416.00,2,0,'2015-08-11 18:59:48','Yusuf','PEKER');
 /*!40000 ALTER TABLE `satinalmaform` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,4 +178,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-31 20:03:08
+-- Dump completed on 2015-08-11 19:16:53
