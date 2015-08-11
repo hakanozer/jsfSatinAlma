@@ -353,6 +353,7 @@ public class satinTalepFormu {
         RequestContext.getCurrentInstance().reset("form:form");
       
     }
-   
+    
+      
     
 }

@@ -31,10 +31,12 @@
                         $('.ui-growl.ui-widget').delay(3000).slideUp(1000);
                     })
                 </script>
+             
                <p:menubar style="font-size: 16px;">
 
+                   <p:menuitem icon="ui-icon-home" value="AnaSayfa" url="http://localhost:8080/jsfSatinAlma/faces/yonetici.xhtml"></p:menuitem>
                     <p:submenu label="Yönetim" icon="ui-icon-document">
-                        <p:menuitem value="İstek/Talep" url="#" />
+                        <p:menuitem id="movieBtn" value="İstek/Talep" />
                         <p:separator />
                         <p:submenu label="Kullanıcı" icon="ui-icon-contact">
                             <p:menuitem value="Kullanıcı Kaydı" url="#" />
@@ -42,15 +44,17 @@
                     </p:submenu>
 
                     <p:submenu label="Rapor" icon="ui-icon-document-b">
-                        <p:menuitem value="Onaylanan" url="#" icon="ui-icon-check" />
-                        <p:menuitem value="İptal Edilen" url="#" icon="ui-icon-circle-close" />
+                        <p:menuitem value="Onaylanan" url="http://localhost:8080/jsfSatinAlma/faces/onay_TalepList.xhtml" icon="ui-icon-check" />
+                        <p:menuitem value="İptal Edilen" url="http://localhost:8080/jsfSatinAlma/faces/iptal_TalepList.xhtml" icon="ui-icon-circle-close" />
                     </p:submenu>
 
 
                     <f:facet name="options">
-                        <p:outputLabel value="Hoşgeldiniz: " style="font-size: 16px; color: royalblue"></p:outputLabel>
-                        <p:outputLabel style="font-size: 16px; margin-right: 10px; ">#{dB.userName} #{dB.userSurName}  </p:outputLabel>
-                        <p:outputLabel value="Sistem Giriş: " style="font-size: 15px; color: royalblue"></p:outputLabel>
+                        <p:outputLabel value="Sayın " style="font-size: 16px; color: royalblue"></p:outputLabel>
+                          <p:outputLabel style="font-size: 16px; margin-right: 5px;  ">[ #{dB.userName} #{dB.userSurName}  ]</p:outputLabel>
+                        <p:outputLabel value="Hoşgeldiniz." style="font-size: 15px; margin-right: 5px; color: royalblue"></p:outputLabel>
+                      
+                        <p:outputLabel value="Sistem Giriş: " style="font-size: 13px; color: royalblue"></p:outputLabel>
                         <p:outputLabel value="#{currentDate}" style="margin-right: 5px; font-size: 14px;">
                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm" type="date" /> 
                             
@@ -60,6 +64,31 @@
                     </f:facet>
                 </p:menubar>
 
+                
+                 
+    <p:overlayPanel  id="moviePanel" for="movieBtn" hideEffect="fade" dynamic="true" style="width:600px;" at="right bottom">
+        <p:dataTable var="movies" value="#{yoneticiListe.listele()}" rows="5" paginator="true">
+            <p:column headerText="Movie">
+                <h:outputText value="#{movies.tedarikci_adi}" />
+            </p:column>
+ 
+            <p:column headerText="Directed By">
+                <h:outputText value="#{movies.kategori_adi}" />
+            </p:column>
+ 
+            <p:column headerText="Genres">
+                <h:outputText value="#{movies.urun_adi}" />
+            </p:column>
+ 
+            <p:column headerText="Run Time(min.)">
+                <h:outputText value="#{movies.toplamTutar}" />
+            </p:column>
+        </p:dataTable>
+    </p:overlayPanel>
+                
+                
+                
+                
                 <p:separator />
 
                 <h:form>
@@ -140,15 +169,13 @@
                                        showEffect="clip" hideEffect="explode" />
                         </p:column>
 
-                          
-                    
-     
                     </p:dataTable>
+             
                
-
                 </h:form>
 
             </h:form>
+       
 
             
         </h:body>

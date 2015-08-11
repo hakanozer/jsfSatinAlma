@@ -87,6 +87,5 @@ finally{
         int geriDurum = db.baglan().executeUpdate("update satinalmaform set durum = '6' where id = '"+id+"'");
         
            }
-    
 
 }

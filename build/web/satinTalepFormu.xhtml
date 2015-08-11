@@ -22,7 +22,7 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>Admin Giriş</title>
+                <title>Satın Alma Talep</title>
             </f:facet>
         </h:head>
         <h:body>
@@ -70,7 +70,7 @@
                         <p:outputLabel value="Genel Toplam:" for="gelenToplam" />
                         <p:inputText  readonly="true" style="width: 100px;" value="#{satinTalepFormu.genelToplam}" placeholder="0.00" id="gelenToplam" />
 
-                        <p:commandButton type="reset" value="Temizle" update="panelform" process="@this" actionListener="#{satinTalepFormu.reset}" />
+                        <p:commandButton  type="reset" value="Temizle" update="panelform" process="@this" actionListener="#{satinTalepFormu.reset}" />
                         <p:commandButton style="width: 100px;"  value="Kaydet" action="#{satinTalepFormu.satinAlKaydet}" actionListener="#{satinTalepFormu.destroyWorld}" update="kayit"   />
                </h:panelGrid>                
                 </p:panel>
