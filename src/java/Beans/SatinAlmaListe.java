@@ -3,6 +3,7 @@ package Beans;
 
 import javax.faces.bean.ManagedBean;
 
+
 @ManagedBean(name = "satinAlma")
 public class SatinAlmaListe {
     
@@ -21,6 +22,18 @@ public class SatinAlmaListe {
     private String tarih;
     private String insertUserName;
     private String insert_UserSurName;
+    private  String talepAciklama;
+
+    public String getTalepAciklama() {
+        return talepAciklama;
+    }
+
+    public  void  setTalepAciklama(String talepAciklama) {
+        
+        System.out.println("setTalepAciklama: "+talepAciklama);
+        this.talepAciklama = talepAciklama;
+    }
+    
 
     public String getInsert_UserSurName() {
         return insert_UserSurName;

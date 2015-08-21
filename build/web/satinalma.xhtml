@@ -7,16 +7,11 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       >
 
-    <style>
-        table {
-            
-             font-size: 13px;
-        }
-       
-    </style>
-
+   
     <f:view contentType="text/html">
         <h:head>
+            
+<h:outputStylesheet library="tema" name="css/style.css"></h:outputStylesheet>
 
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
@@ -41,7 +36,13 @@
                 
                 <p:menubar style="font-size: 16px;">
 
-                 
+                 <p:menuitem value="Satın Alma Talep " url="#">
+               <p:lightBox iframe="true" id="lighbox3"  width="1000px" height="490px" widgetVar="light"  >
+                    <h:outputLink value="http://localhost:8080/jsfSatinAlma/faces/satinTalepFormu.xhtml" title="Satın Alma Talep Formu"  > 
+                        <p:commandButton value="Satın Alma Talep" icon="ui-icon-folder-open" style="font-size: 14px;"></p:commandButton>
+                    </h:outputLink>
+                </p:lightBox> 
+               </p:menuitem>
                
                     
                     <p:submenu label="Satın Alma Takip" icon="ui-icon-document">
@@ -80,17 +81,7 @@
 
 
                 </p:menubar>
-                
-                
-                
-              
-                <p:separator />
-                <p:lightBox iframe="true" id="lighbox3"  width="1000px" height="490px" widgetVar="light"  >
-                    <h:outputLink value="http://localhost:8080/jsfSatinAlma/faces/satinTalepFormu.xhtml" title="Satın Alma Talep Formu"  > 
-                        <p:commandButton value="Satın Alma Talep" icon="ui-icon-folder-open" style="font-size: 14px;"></p:commandButton>
-                    </h:outputLink>
-                </p:lightBox>  
-
+           
                 <p:separator />
 
                 <h:form>

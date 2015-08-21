@@ -208,23 +208,7 @@ public class satinTalepFormu {
             int kayit = db.baglan().executeUpdate("insert into satinalmaform values(null, '" + kat_id + "', '" + unvan + "', '" + urunAdi + "', '" + birimFiyat + "', '" + adet + "','" + kdv + "', '" + toplamTutar + "', '" + genelToplam + "', '" + DB.yazuserId + "','0', now(),'"+DB.yazuserName +"','"+DB.yazuserSurName +"' )");
         if (kayit > 0) {
             System.out.println("Satin Alma Form Oluşturuldu");
-            
-            /*
-            try {
-                
-                System.out.println("Satin Alma YONLENDİRİLDİ");
-                git.getFlash().setKeepMessages(true);
-                git.getFlash().setRedirect(true);
-                git.redirect(DB.siteUrl + "index.xhtml");
-
-            } catch (Exception e) {
-
-                System.out.println("yonetici Giris Hatas" + e);
-            }
-            */
-            
-            
-        }
+          }
             
         } catch (Exception e) {
             System.err.println("SQL Yazma Hatası : "+ e);
@@ -349,11 +333,16 @@ public class satinTalepFormu {
     }
     
     
-    public void reset() {
-        RequestContext.getCurrentInstance().reset("form:form");
-      
+   public void reset() {
+        //RequestContext.getCurrentInstance().reset("form:form");
+        //FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("satinTalepFormu");
+        toplamTutar = 0.00f;
+        genelToplam = 0.00f;
+        birimFiyat = 0.00f;
+        adet = 0;
+        
+        System.out.println("Rsetleme Çalıştı");
     }
-    
       
     
 }

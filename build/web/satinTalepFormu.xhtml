@@ -70,7 +70,7 @@
                         <p:outputLabel value="Genel Toplam:" for="gelenToplam" />
                         <p:inputText  readonly="true" style="width: 100px;" value="#{satinTalepFormu.genelToplam}" placeholder="0.00" id="gelenToplam" />
 
-                        <p:commandButton  type="reset" value="Temizle" update="panelform" process="@this" actionListener="#{satinTalepFormu.reset}" />
+                        <p:commandButton  value="Temizle" update="panelform" process="@this" actionListener="#{satinTalepFormu.reset}" immediate="true" />
                         <p:commandButton style="width: 100px;"  value="Kaydet" action="#{satinTalepFormu.satinAlKaydet}" actionListener="#{satinTalepFormu.destroyWorld}" update="kayit"   />
                </h:panelGrid>                
                 </p:panel>

@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="JSF_PROJECT">
-            <file>file:/C:/Users/volkan.ozturk/Documents/GitHub/jsfSatinAlma/web/satinalma.xhtml</file>
-            <file>file:/C:/Users/volkan.ozturk/Documents/GitHub/jsfSatinAlma/web/iptal_TalepList.xhtml</file>
+            <file>file:/C:/Users/volkan.ozturk/Documents/GitHub/jsfSatinAlma/src/java/Beans/SatinAlmaListe.java</file>
+            <file>file:/C:/Users/volkan.ozturk/Documents/GitHub/jsfSatinAlma/src/java/Beans/LoginControl.java</file>
             <file>file:/C:/Users/volkan.ozturk/Documents/GitHub/jsfSatinAlma/web/yonetici.xhtml</file>
-            <file>file:/C:/Users/volkan.ozturk/Documents/GitHub/jsfSatinAlma/web/onay_TalepList.xhtml</file>
-            <file>file:/C:/Users/volkan.ozturk/Documents/GitHub/jsfSatinAlma/web/satinTalepFormu.xhtml</file>
+            <file>file:/C:/Users/volkan.ozturk/Documents/GitHub/jsfSatinAlma/src/java/Beans/DB.java</file>
+            <file>file:/C:/Users/volkan.ozturk/Documents/GitHub/jsfSatinAlma/src/java/Beans/YoneticiListe.java</file>
         </group>
     </open-files>
 </project-private>

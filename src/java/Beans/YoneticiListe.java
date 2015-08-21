@@ -1,21 +1,28 @@
 
 package Beans;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.CategoryAxis;
+import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.LineChartModel;
+import org.primefaces.model.chart.LineChartSeries;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
+
 
 
 
@@ -23,7 +30,8 @@ import org.apache.poi.hssf.util.HSSFColor;
 
 @ManagedBean()
 public class YoneticiListe {
-  
+   private Date date;
+   private Date date1;
        // çıkış yap
     ExternalContext git = FacesContext.getCurrentInstance().getExternalContext();
     DB db = new DB(); 
@@ -78,7 +86,7 @@ public class YoneticiListe {
         }
 finally{
         
-        db.closeConnection();
+       db.closeConnection();
               System.out.println("DB KAPATILDI!");
         
           }
@@ -100,7 +108,9 @@ finally{
     
        
     List<SatinAlmaListe> Onay_liste = new ArrayList<>();
-                
+    
+    
+    
           try {
             ResultSet rs = db.baglan().executeQuery("SELECT * from satinalmaform AS satin LEFT JOIN  kategori as kat on  kat.kategori_id = satin.kategori_id WHERE satin.durum='2'  order by satin.durum asc");
        
@@ -161,7 +171,8 @@ finally{
     
        
     List<SatinAlmaListe> iptal_liste = new ArrayList<>();
-                
+                 
+                 
           try {
             ResultSet rs = db.baglan().executeQuery("SELECT * from satinalmaform AS satin LEFT JOIN  kategori as kat on  kat.kategori_id = satin.kategori_id WHERE satin.durum='5'  order by satin.durum asc");
        
@@ -208,18 +219,31 @@ finally{
     
     
     //0 ise okunmadı, 1 ise okudu, 2 ise okundu onaylandı, 3 ise okundu red alındı,5 ise iptal edildi.
-      public void talepIptalEt(String id) throws SQLException {
-        int geriDurum = db.baglan().executeUpdate("update satinalmaform set durum = '5' where id = '"+id+"'");
+      public void talepIptalEt(String id,String aciklama) throws SQLException {
+        int geriDurum = db.baglan().executeUpdate("update satinalmaform set durum = '5' , aciklama = '"+aciklama+"' where id = '"+id+"'");
         
        
     }
-      
-         public void talepOnayla(String id) throws SQLException {
-        int geriDurum = db.baglan().executeUpdate("update satinalmaform set durum = '2' where id = '"+id+"'");
-        
-       
-    }
+    
+        public void talepOnayla(String id, String aciklama) throws SQLException {
+          
+            try{
+               
+       int geriDurum = db.baglan().executeUpdate("update satinalmaform set durum = '2' , aciklama = '"+aciklama+"' where id = '"+id+"'");
+             if (geriDurum > 0) {
+
+                System.out.println("Yazma işlemi başarılı");
+                 git.redirect(DB.siteUrl+"yonetici.xhtml");
+            }
+
+        } catch (Exception e) {
+
+            System.err.println("yazma işlemi hatası" + e);
+        }
+            
+   }
          
+ 
          
          
          public void infoOnay() {
@@ -231,8 +255,38 @@ finally{
       FacesContext context = FacesContext.getCurrentInstance();
        context.addMessage(null, new FacesMessage("Talep İptal", "Satın Alma Talebi İptal Edildi!"));
     }
-   
-   
+
          
-       
+  //DATE        
+ public void onDateSelect(SelectEvent event) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));
+    }
+   public void click() {
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+         
+        requestContext.update("form:display");
+        requestContext.execute("PF('dlg').show()");
+    }
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Date getDate1() {
+        return date1;
+    }
+
+    public void setDate1(Date date1) {
+        this.date1 = date1;
+    }
+   
+   //LİNE CHART
+  
+    
+    
 }
