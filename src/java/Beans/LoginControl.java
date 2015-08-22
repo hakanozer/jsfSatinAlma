@@ -68,7 +68,11 @@ public class LoginControl {
     
     public void login(ActionEvent event) throws SQLException, IOException {
         
-        
+        System.out.println("**********LoginControl.java*****************");
+         System.out.println(" getUserName "+ getUsername());
+         System.out.println(" getPassword "+ getPassword());
+          System.out.println("***********************************");
+         
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
         boolean loggedIn = false;

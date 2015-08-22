@@ -20,17 +20,17 @@ public class DB {
     String dbName = "satinalma?characterEncoding=utf8";
     String dbUName = "root";
     String dbUPass = "112233";
-    
+
     public static String siteUrl = "http://localhost:8080/jsfSatinAlma/faces/";
     public static String seviye = "";
-    private  String userName = "";
-    private  String userSurName = "";
-    private  String userId = "";
-    
+    private String userName = "";
+    private String userSurName = "";
+    private String userId = "";
+
     public static String yazuserName = "";
     public static String yazuserSurName = "";
     public static String yazuserId = "";
-    
+
     public String getUserName() {
         return this.yazuserName;
     }
@@ -54,14 +54,19 @@ public class DB {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-    
-    
 
     // Bağlantı değişkenleri
     Connection conn = null;
     Statement st = null;
 
     public Statement baglan() throws SQLException {
+
+        System.out.println("********* DB INFORMATION ************");
+        System.out.println(" url " + url);
+        System.out.println(" dbName " + dbName);
+        System.out.println(" dbUName " + dbUName);
+        System.out.println(" dbUPass " + dbUPass);
+        System.out.println("*************************");
 
         try {
             // kütüphane hazır konuma getiriliyor
@@ -74,9 +79,8 @@ public class DB {
         return st;
     }
 
-    
-      public void closeConnection() throws Exception{
+    public void closeConnection() throws Exception {
         conn.close();
     }
-    
+
 }

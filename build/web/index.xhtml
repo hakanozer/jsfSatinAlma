@@ -7,6 +7,7 @@
 
     <f:view contentType="text/html">
         <h:head>
+            <h:outputStylesheet library="tema" name="css/style.css"></h:outputStylesheet>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title>Kullanıcı Giriş</title>
@@ -18,12 +19,12 @@
  <h:form>            
 
      
-     <h:graphicImage width="320" style="margin-left: 520px;" class="img" library="tema" name="images/logo.png"></h:graphicImage>
+     <h:graphicImage  width="320" class="img" library="tema" name="images/logo.png"></h:graphicImage>
      
      
     <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
  
-    <p:dialog header="Kullanıcı Giriş" widgetVar="dlg" resizable="false">
+    <p:dialog class="yakala" header="Kullanıcı Giriş" widgetVar="dlg" resizable="false">
         
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel for="username" value="Kullanıcı Adı:" />
@@ -55,7 +56,20 @@
 </script>
 
 
-
+            <script>
+                $(document).ready(function(){
+                    $(window).resize(function () {
+                        $('.yakala').css({
+                            position: 'absolute',
+                            left: ($(window).width() - $('.yakala').outerWidth()) / 2,
+                            top: ($(window).height() - $('.yakala').outerHeight()) / 2,
+                        });
+                    });
+                })
+            </script>       
+            
+            
+            
         </h:body>
     </f:view>
 </html>

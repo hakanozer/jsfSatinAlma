@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
@@ -24,6 +25,7 @@
                 <script type="text/javascript">
                     $(document).ready(function () {
                         $('.ui-growl.ui-widget').delay(3000).slideUp(1000);
+                        $('td textarea').text("");
                     })
                 </script>
 
@@ -162,20 +164,21 @@
  
                         <p:column headerText="Açıklama">
                            <h:form>
-                                <p:inputTextarea value="#{satinAlma.talepAciklama}"  cols="10" autoResize="true" placeholder="Onay/iptal sebebini giriniz!" />   
+                               <p:inputTextarea value="#{yoneticiListe.talepAciklama}" id="sebep"  cols="10" autoResize="true" placeholder="Onay/iptal sebebini giriniz!" />   
                           </h:form>
                         </p:column>
  
                         <p:column headerText="İşlemler">
      
-                            <p:commandButton id="yonetimBttnInfo" action="#{yoneticiListe.talepOnayla(yonetim.satinAlmaId,satinAlma.talepAciklama)}" actionListener="#{yoneticiListe.infoOnay}" update="growl"  ajax="false"  icon="ui-icon-circle-check" />
-                       
+                            <p:commandButton id="yonetimBttnInfo" action="#{yoneticiListe.talepOnayla(yonetim.satinAlmaId,yoneticiListe.talepAciklama)}" actionListener="#{yoneticiListe.infoOnay}" update="growl"  ajax="false"  icon="ui-icon-circle-check" />
+                                                  
+                            
                             <span class="ui-separator">
 
                             </span>            
                             <p:tooltip style="font-size: 12px;" id="toolTipGrow" for="yonetimBttnInfo" value="Satın Alma Talebini Onayla"
                                        showEffect="clip" hideEffect="explode" />
-                            <p:commandButton id="ıptalMSG" action="#{yoneticiListe.talepIptalEt(yonetim.satinAlmaId,satinAlma.talepAciklama)}" actionListener="#{yoneticiListe.infoIptal}" update="growl"  ajax="false" icon="ui-icon-circle-close" />
+                            <p:commandButton id="ıptalMSG" action="#{yoneticiListe.talepIptalEt(yonetim.satinAlmaId,yoneticiListe.talepAciklama)}" actionListener="#{yoneticiListe.infoIptal}" update="growl"  ajax="false" icon="ui-icon-circle-close" />
                             <p:tooltip style="font-size: 12px;" id="voll" for="ıptalMSG" value="Satın Alma Talebini İptal Et"
                                        showEffect="clip" hideEffect="explode" />
                         </p:column>
